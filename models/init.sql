@@ -1,9 +1,9 @@
 CREATE TABLE queue_items
 (
-  id           SERIAL  NOT NULL
+  id           SERIAL      NOT NULL
     CONSTRAINT queue_items_pkey
     PRIMARY KEY,
-  user_id      INTEGER NOT NULL,
+  user_id      VARCHAR(30) NOT NULL,
   next_item_id INTEGER
     CONSTRAINT next_item_id
     REFERENCES queue_items
@@ -35,3 +35,4 @@ CREATE TABLE queues
 
 CREATE UNIQUE INDEX queues_id_uindex
   ON queues (id);
+

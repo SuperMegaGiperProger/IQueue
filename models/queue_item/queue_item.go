@@ -9,17 +9,18 @@ import (
 
 type QueueItem struct {
 	Id         int32
-	UserId     int32
+	UserName   string
 	NextItemId int32
 	PrevItemId int32
 }
 
 func get(row *sql.Row) (qItem QueueItem) {
-	var id, userId, nextItemId, prevItemId sql.NullInt64
-	row.Scan(&id, &userId, &nextItemId, &prevItemId)
+	var id, nextItemId, prevItemId sql.NullInt64
+	var userName sql.NullString
+	row.Scan(&id, &userName, &nextItemId, &prevItemId)
 	qItem.Id = int32(id.Int64)
-	if userId.Valid {
-		qItem.UserId = int32(userId.Int64)
+	if userName.Valid {
+		qItem.UserName = userName.String
 	}
 	if nextItemId.Valid {
 		qItem.NextItemId = int32(nextItemId.Int64)
@@ -34,11 +35,11 @@ func Set(id int32, fieldName string, value string) {
 	models.SetFieldById("queue_items", fieldName, value, id)
 }
 
-func New(userId int32) (qItem QueueItem, err error) {
-	qItem = QueueItem{0, userId, 0, 0}
+func New(userName string) (qItem QueueItem, err error) {
+	qItem = QueueItem{0, userName, 0, 0}
 	row := models.DB.QueryRow(`INSERT INTO queue_items (user_id)
 							  			VALUES ($1)
-							  			RETURNING id`, userId)
+							  			RETURNING id`, userName)
 	err = row.Scan(&(qItem.Id))
 	return
 }
