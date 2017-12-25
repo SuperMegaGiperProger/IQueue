@@ -73,13 +73,18 @@ func (q *Queue) Push(newItem queue_item.QueueItem) {
 	q.set("last_item_id", strconv.Itoa(int(newItem.Id)))
 }
 
-func (q Queue) Erase(itemId int32) {
+func (q *Queue) Erase(itemId int32) {
 	eraseItem := queue_item.Find(itemId)
 	if eraseItem.NextItemId == 0 {
 		q.lastItemId = eraseItem.PrevItemId
 		q.set("last_item_id", strconv.Itoa(int(eraseItem.PrevItemId)))
 	}
 	eraseItem.Remove()
+}
+
+func (q *Queue) Pop() {
+	if q.lastItemId == q.firstItemId { return }
+	q.Erase(queue_item.Find(q.firstItemId).Next().Id)
 }
 
 func (q Queue) ToSlice() (items []queue_item.QueueItem) {
