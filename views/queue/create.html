@@ -9,6 +9,7 @@
         body {
             text-align: center;
         }
+
         #items input {
             margin: 3px;
         }
@@ -52,19 +53,99 @@
             margin: 20px;
             /*margin-top: 3%;*/
         }
+
+        #items {
+            /*width: 120px;*/
+            text-align: left;
+            display: inline-block;
+        }
+
+        .rounded-list ol {
+            counter-reset: li; /* Initiate a counter */
+            margin-left: 0; /* Remove the default left margin */
+            padding-left: 0; /* Remove the default left padding */
+        }
+
+        /* item  */
+        .rounded-list ol > li {
+            position: relative; /* Create a positioning context */
+            list-style: none; /* Disable the normal item numbering */
+            background: #f0f0f0; /* Item background color */
+            margin: 0; /* Give each list item a left margin to make room for the numbers */
+            padding-left: 15px; /* Add some spacing around the content */
+            padding-bottom: 0px;
+            padding-top: 0px;
+        }
+
+        /* number  */
+        .rounded-list ol > li p:before {
+            content: counter(li);
+            counter-increment: li;
+            position: absolute;
+            left: -1.3em;
+            top: 50%;
+
+            /* number background */
+            background: #87ceeb;
+            height: 2em;
+            width: 2em;
+            margin-top: -1em;
+            line-height: 1.5em;
+            border: .3em solid #fff;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 2em;
+        }
     </style>
     <script>
         function add_item() {
-            $("#items").append('<input name="item[]" type="text" value="username"><br>');
+            $("#items_list").append('<li><p><input name="item[]" type="text" value="username"></p></li>');
+        }
+
+        function get_items() {
+            var items = [];
+            $("ol#items_list > li > p > input").each(function (index, element) {
+                items.push($(element).val());
+            });
+            return items;
+        }
+
+        function mix(items) {
+            var mixed_items = [];
+            items.forEach(function (item, i) {
+                mixed_items.splice(Math.floor(Math.random() * i), 0, item)
+            });
+            return mixed_items;
+        }
+
+        function hide(elem, duration) {
+            elem.animate({opacity: 0.0}, duration);
+            setTimeout(function(){elem.css("visibility", "hidden")}, duration);
+        }
+        function mix_queue() {
+            var inputs = $("ol#items_list > li > p > input");
+            mix(get_items()).forEach(function (value, i) {
+                $(inputs[i]).val(value)
+            });
+            hide($("#btn-rand"), 1000);
         }
     </script>
 </head>
 <body>
+<script>
+    $(document).keypress(
+            function (event) {
+                if (event.which == '13') {
+                    event.preventDefault();
+                }
+            }
+    );
+</script>
 <form action="/save" method="get">
     <h2>Create queue</h2>
     <div id="main-panel">
         <button id="btn-rand" class="btn btn-success circle btn-lg btn-top" name="mix" value="Mix"
-                data-disable-with="Mix" type="button" style="visibility: hidden">
+                data-disable-with="Mix" type="button" onclick="mix_queue()">
             <i class="glyphicon glyphicon-random"></i>
         </button>
         <input id="queue_name" size="10" name="queue_name" type="text" value="Name"
@@ -75,7 +156,15 @@
             <i class="glyphicon glyphicon-ok"></i>
         </button>
     </div>
-    <div id="items">
+    <div id="items" class="rounded-list">
+        <table border=0 class="rounded-list" style="width: 150px">
+            <tr>
+                <td>
+                    <ol id="items_list">
+                    </ol>
+                </td>
+            </tr>
+        </table>
     </div>
     <script>add_item()</script>
     <div>
