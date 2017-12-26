@@ -2,7 +2,7 @@ package main
 
 import (
 	"net/http"
-//	"regexp"
+	//	"regexp"
 )
 
 import (
@@ -10,15 +10,24 @@ import (
 	"./controllers/queue"
 )
 
+var routes = map[string]func(http.ResponseWriter, *http.Request) {
+	"/": queue.Create,
+	"/create": queue.Create,
+	"/push": queue.Push,
+	"/show": queue.Show,
+	"/save": queue.Save,
+	"/remove": queue.Remove,
+	"/pop": queue.Pop,
+}
+
+func initHandlers() {
+	for pattern, handler := range routes {
+		http.HandleFunc(pattern, handler)
+	}
+}
+
 func main() {
 	models.InitDB()
-
-	http.HandleFunc("/", queue.Create)
-	http.HandleFunc("/create", queue.Create)
-	http.HandleFunc("/push", queue.Push)
-	http.HandleFunc("/show", queue.Show)
-	http.HandleFunc("/save", queue.Save)
-	http.HandleFunc("/remove", queue.Remove)
-	http.HandleFunc("/pop", queue.Pop)
+	initHandlers()
 	http.ListenAndServe(":8080", nil)
 }
