@@ -6,20 +6,23 @@ import (
 )
 
 import (
-	"fmt"
+	//"fmt"
 	"./models"
 	//"./models/queue_item"
 	//"./models/queue"
+	"html/template"
+	"./controllers/queue"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "Hello, World!")
+	t, _ := template.ParseFiles("views/queue/create.html")
+	t.Execute(w, nil)
 }
 
 func main() {
 	models.InitDB()
-	//http.HandleFunc("/list/", makeHandler(viewHandler))
-	//http.HandleFunc("/", handler)
 
-	//http.ListenAndServe(":8080", nil)
+	http.HandleFunc("/", handler)
+	http.HandleFunc("/save", queue.Save)
+	http.ListenAndServe(":8080", nil)
 }

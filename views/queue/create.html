@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create</title>
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <style>
+        #items input {
+            margin: 3px;
+        }
+    </style>
+</head>
+<body style="text-align: center">
+<script>
+    function add_item() {
+        $("#items").append('<input name="item[]" type="text" value="username"><br>');
+    }
+</script>
+<form action="/save" method="get">
+    <div style="margin: 20px; margin-top: 5%">
+        <input name="mix" value="Mix" data-disable-with="Mix" type="button" style="visibility: hidden">
+        <input id="queue_name" size="10" name="queue_name" type="text" value="Name"
+               style="text-align: center; font-size: xx-large">
+        <input name="commit" value="Save" data-disable-with="Save" type="submit">
+    </div>
+    <div id="items">
+    </div>
+    <div>
+        <input type="button" onclick="add_item()" value="+">
+    </div>
+</form>
+</body>
+</html>

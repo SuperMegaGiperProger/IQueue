@@ -35,12 +35,12 @@ func Set(id int32, fieldName string, value string) {
 	models.SetFieldById("queue_items", fieldName, value, id)
 }
 
-func New(userName string) (qItem QueueItem, err error) {
+func New(userName string) (qItem QueueItem) {
 	qItem = QueueItem{0, userName, 0, 0}
 	row := models.DB.QueryRow(`INSERT INTO queue_items (user_id)
 							  			VALUES ($1)
 							  			RETURNING id`, userName)
-	err = row.Scan(&(qItem.Id))
+	row.Scan(&(qItem.Id))
 	return
 }
 

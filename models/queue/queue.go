@@ -25,7 +25,7 @@ func (q Queue) set(fieldName, value string) {
 }
 
 func New(name string) (q Queue, err error) {
-	fakeItem, _ := queue_item.New("")
+	fakeItem := queue_item.New("")
 	q = Queue{0, name, fakeItem.Id, fakeItem.Id}
 	row := models.DB.QueryRow(`INSERT INTO queues (name, first_item_id, last_item_id)
 							  			VALUES ($1, $2, $3)
