@@ -7,7 +7,7 @@ import (
 	"../../models/queue_item"
 	"strconv"
 	"html/template"
-	"fmt"
+	"sort"
 )
 
 func getQ(r *http.Request) queue_model.Queue {
@@ -34,7 +34,7 @@ type Items struct {
 func Show(w http.ResponseWriter, r *http.Request) {
 	t, _ := template.ParseFiles("views/queue/show.html")
 	q := getQ(r)
-	fmt.Println(t.Execute(w, Items{q, q.ToSlice()}))
+	t.Execute(w, Items{q, q.ToSlice()})
 }
 
 func Create(w http.ResponseWriter, r *http.Request) {
@@ -62,5 +62,7 @@ func Remove(w http.ResponseWriter, r *http.Request) {
 
 func List(w http.ResponseWriter, r *http.Request) {
 	t, _ := template.ParseFiles("views/queue/list.html")
-	t.Execute(w, queue_model.All())
+	queues := queue_model.All()
+	sort.Slice(queues, func(i, j int) bool { return queues[i].Name < queues[j].Name })
+	t.Execute(w, queues)
 }
