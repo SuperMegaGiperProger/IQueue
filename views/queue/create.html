@@ -4,29 +4,84 @@
     <meta charset="UTF-8">
     <title>Create</title>
     <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <style>
+        body {
+            text-align: center;
+        }
         #items input {
             margin: 3px;
         }
+
+        .circle {
+            border-radius: 50%;
+        }
+
+        .btn {
+            /*color: white;*/
+            text-align: center;
+            font-weight: bold;
+            /*background-color: darkred;*/
+        }
+
+        #btn-inc {
+            margin: 5px;
+            height: 36px;
+            width: 36px;
+            text-align: center;
+        }
+
+        #btn-inc i {
+            margin-left: -1px;
+            margin-top: 3px;
+        }
+
+        .btn-top {
+            height: 45px;
+            width: 45px;
+            margin: 14px;
+            margin-top: -3px;
+        }
+
+        .btn-top i {
+            margin-left: -4px;
+            margin-top: 2px;
+        }
+
+        #main-panel {
+            margin: 20px;
+            /*margin-top: 3%;*/
+        }
     </style>
+    <script>
+        function add_item() {
+            $("#items").append('<input name="item[]" type="text" value="username"><br>');
+        }
+    </script>
 </head>
-<body style="text-align: center">
-<script>
-    function add_item() {
-        $("#items").append('<input name="item[]" type="text" value="username"><br>');
-    }
-</script>
+<body>
 <form action="/save" method="get">
-    <div style="margin: 20px; margin-top: 5%">
-        <input name="mix" value="Mix" data-disable-with="Mix" type="button" style="visibility: hidden">
+    <h2>Create queue</h2>
+    <div id="main-panel">
+        <button id="btn-rand" class="btn btn-success circle btn-lg btn-top" name="mix" value="Mix"
+                data-disable-with="Mix" type="button" style="visibility: hidden">
+            <i class="glyphicon glyphicon-random"></i>
+        </button>
         <input id="queue_name" size="10" name="queue_name" type="text" value="Name"
                style="text-align: center; font-size: xx-large">
-        <input name="commit" value="Save" data-disable-with="Save" type="submit">
+        <button id="btn-save" class="btn btn-success circle btn-lg btn-top" name="commit" value="Save"
+                data-disable-with="Save"
+                type="submit">
+            <i class="glyphicon glyphicon-ok"></i>
+        </button>
     </div>
     <div id="items">
     </div>
+    <script>add_item()</script>
     <div>
-        <input type="button" onclick="add_item()" value="+">
+        <button id="btn-inc" class="btn btn-warning circle btn-md" type="button" onclick="add_item()">
+            <i class="glyphicon glyphicon-plus"></i>
+        </button>
     </div>
 </form>
 </body>
