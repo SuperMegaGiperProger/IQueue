@@ -6,23 +6,19 @@ import (
 )
 
 import (
-	//"fmt"
 	"./models"
-	//"./models/queue_item"
-	//"./models/queue"
-	"html/template"
 	"./controllers/queue"
 )
-
-func handler(w http.ResponseWriter, r *http.Request) {
-	t, _ := template.ParseFiles("views/queue/create.html")
-	t.Execute(w, nil)
-}
 
 func main() {
 	models.InitDB()
 
-	http.HandleFunc("/", handler)
+	http.HandleFunc("/", queue.Create)
+	http.HandleFunc("/create", queue.Create)
+	http.HandleFunc("/push", queue.Push)
+	http.HandleFunc("/show", queue.Show)
 	http.HandleFunc("/save", queue.Save)
+	http.HandleFunc("/remove", queue.Remove)
+	http.HandleFunc("/pop", queue.Pop)
 	http.ListenAndServe(":8080", nil)
 }

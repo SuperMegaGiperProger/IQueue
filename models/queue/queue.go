@@ -10,13 +10,13 @@ import (
 
 type Queue struct {
 	Id          int32
-	name        string
+	Name        string
 	firstItemId int32
 	lastItemId  int32
 }
 
 func (q *Queue) get(row *sql.Row) (err error) {
-	err = row.Scan(&(q.Id), &(q.name), &(q.firstItemId), &(q.lastItemId))
+	err = row.Scan(&(q.Id), &(q.Name), &(q.firstItemId), &(q.lastItemId))
 	return
 }
 
