@@ -97,22 +97,36 @@
             border-radius: 2em;
         }
 
+        #logo {
+            position: absolute;
+            display: inline-block;
+            left: 10px;
+            top: -5px;
+        }
+
+        #logo a:hover, #logo a:visited, #logo a:active {
+            text-decoration: none;
+            color: #2800a2;
+        }
     </style>
     <script>
         function create_item() {
             var username = prompt("Enter username", "");
             window.location.replace("/push?queue_id=" + {{.Queue.Id}} +"&username=" + username);
         }
+
         function remove() {
             if (!confirm("Are you sure?")) return;
-            window.location.replace("/remove?queue_id=" + {{.Queue.Id}} + "");
+            window.location.replace("/remove?queue_id=" + {{.Queue.Id}} +"");
         }
+
         function pop() {
-            window.location.replace("/pop?queue_id=" + {{.Queue.Id}} + "");
+            window.location.replace("/pop?queue_id=" + {{.Queue.Id}} +"");
         }
     </script>
 </head>
 <body>
+<div id="logo"><a href="/"><h1>IQueue</h1></a></div>
 <div id="main-panel">
     <button id="btn-pop" class="btn btn-success circle btn-lg btn-top" name="pop" value="Pop"
             data-disable-with="Pop" type="button" onclick="pop()">

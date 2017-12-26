@@ -96,6 +96,16 @@
             font-weight: bold;
             border-radius: 2em;
         }
+        #logo {
+            position: absolute;
+            display: inline-block;
+            left: 10px;
+            top: -5px;
+        }
+        #logo a:hover, #logo a:visited, #logo a:active {
+            text-decoration: none;
+            color: #2800a2;
+        }
     </style>
     <script>
         function add_item() {
@@ -141,6 +151,7 @@
             }
     );
 </script>
+<div id="logo"><a href="/"><h1>IQueue</h1></a></div>
 <form action="/save" method="get">
     <h2>Create queue</h2>
     <div id="main-panel">
