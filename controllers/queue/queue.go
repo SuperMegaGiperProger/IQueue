@@ -59,3 +59,8 @@ func Remove(w http.ResponseWriter, r *http.Request) {
 	getQ(r).Remove()
 	http.Redirect(w, r, "/", http.StatusFound)
 }
+
+func List(w http.ResponseWriter, r *http.Request) {
+	t, _ := template.ParseFiles("views/queue/list.html")
+	t.Execute(w, queue_model.All())
+}

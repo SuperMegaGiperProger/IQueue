@@ -96,3 +96,14 @@ func (q Queue) ToSlice() (items []queue_item.QueueItem) {
 	}
 	return
 }
+
+func All() (queues []Queue) {
+	rows, _ := models.DB.Query(`SELECT * FROM queues`)
+	defer rows.Close()
+	var q Queue
+	for rows.Next() {
+		rows.Scan(&(q.Id), &(q.Name), &(q.firstItemId), &(q.lastItemId))
+		queues = append(queues, q)
+	}
+	return
+}

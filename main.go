@@ -11,13 +11,14 @@ import (
 )
 
 var routes = map[string]func(http.ResponseWriter, *http.Request) {
-	"/": queue.Create,
+	"/": queue.List,
 	"/create": queue.Create,
 	"/push": queue.Push,
 	"/show": queue.Show,
 	"/save": queue.Save,
 	"/remove": queue.Remove,
 	"/pop": queue.Pop,
+	"/list": queue.List,
 }
 
 func initHandlers() {
