@@ -21,6 +21,11 @@ var routes = map[string]func(http.ResponseWriter, *http.Request) {
 	"/list": queue.List,
 }
 
+func handleStatic() {
+	fs := http.FileServer(http.Dir("static"))
+  	http.Handle("/static/", http.StripPrefix("/static/", fs))
+}
+
 func initHandlers() {
 	for pattern, handler := range routes {
 		http.HandleFunc(pattern, handler)
@@ -29,6 +34,7 @@ func initHandlers() {
 
 func main() {
 	models.InitDB()
+	handleStatic()
 	initHandlers()
 	http.ListenAndServe(":8080", nil)
 }
