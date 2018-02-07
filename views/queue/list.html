@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>List</title>
-    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/stylesheets/main.css">
-</head>
-<body>
-<div id="logo"><a href="/"><h1>IQueue</h1></a></div>
+{{ define "content" }}
+
 <div id="main-panel">
     <h1>Queues</h1>
 </div>
@@ -17,9 +8,9 @@
         <tr>
             <td>
                 <ol id="items_list">
-                {{range .}}
-                    <li><p><a class="queue" href="/show?queue_id={{.Id}}">{{.Name}}</a></p></li>
-                {{end}}
+                {{ range . }}
+                    <li><p><a class="queue" href="/show?queue_id={{ .Id }}">{{ .Name }}</a></p></li>
+                {{ end }}
                 </ol>
             </td>
         </tr>
@@ -30,5 +21,5 @@
         <i class="glyphicon glyphicon-plus"></i>
     </a>
 </div>
-</body>
-</html>
+
+{{ end }}

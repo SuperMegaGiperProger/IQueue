@@ -32,13 +32,13 @@ type Items struct {
 }
 
 func Show(w http.ResponseWriter, r *http.Request) {
-	t, _ := template.ParseFiles("views/queue/show.html")
+	t, _ := template.ParseFiles("views/application.html", "views/queue/show.html")
 	q := getQ(r)
 	t.Execute(w, Items{q, q.ToSlice()})
 }
 
 func Create(w http.ResponseWriter, r *http.Request) {
-	t, _ := template.ParseFiles("views/queue/create.html")
+	t, _ := template.ParseFiles("views/application.html", "views/queue/create.html")
 	t.Execute(w, nil)
 }
 
@@ -61,7 +61,7 @@ func Remove(w http.ResponseWriter, r *http.Request) {
 }
 
 func List(w http.ResponseWriter, r *http.Request) {
-	t, _ := template.ParseFiles("views/queue/list.html")
+	t, _ := template.ParseFiles("views/application.html", "views/queue/list.html")
 	queues := queue_model.All()
 	sort.Slice(queues, func(i, j int) bool { return queues[i].Name < queues[j].Name })
 	t.Execute(w, queues)

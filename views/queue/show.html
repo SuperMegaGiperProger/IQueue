@@ -1,35 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{.Queue.Name}}</title>
-    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/stylesheets/main.css">
-    <script>
-        function create_item() {
-            var username = prompt("Enter username", "");
-            window.location.replace("/push?queue_id=" + {{.Queue.Id}} +"&username=" + username);
-        }
+{{ define "content" }}
 
-        function remove() {
-            if (!confirm("Are you sure?")) return;
-            window.location.replace("/remove?queue_id=" + {{.Queue.Id}} +"");
-        }
+<script>
+    function create_item() {
+        var username = prompt("Enter username", "");
+        window.location.replace("/push?queue_id=" + {{ .Queue.Id }} +"&username=" + username);
+    }
 
-        function pop() {
-            window.location.replace("/pop?queue_id=" + {{.Queue.Id}} +"");
-        }
-    </script>
-</head>
-<body>
-<div id="logo"><a href="/"><h1>IQueue</h1></a></div>
+    function remove() {
+        if (!confirm("Are you sure?")) return;
+        window.location.replace("/remove?queue_id=" + {{ .Queue.Id }} +"");
+    }
+
+    function pop() {
+        window.location.replace("/pop?queue_id=" + {{ .Queue.Id }} +"");
+    }
+</script>
 <div id="main-panel">
     <button id="btn-pop" class="btn btn-success circle btn-lg btn-top" name="pop" value="Pop"
             data-disable-with="Pop" type="button" onclick="pop()">
         <i class="glyphicon glyphicon-chevron-up"></i>
     </button>
-    <h2 style="display: inline">{{.Queue.Name}}</h2>
+    <h2 style="display: inline">{{ .Queue.Name }}</h2>
     <button id="btn-rm" class="btn btn-success circle btn-lg btn-top" name="remove" value="Remove"
             data-disable-with="Remove"
             type="button" onclick="remove()">
@@ -41,9 +32,9 @@
         <tr>
             <td>
                 <ol id="items_list">
-                {{range .Items}}
-                    <li><p>{{.UserName}}</p></li>
-                {{end}}
+                {{ range .Items }}
+                    <li><p>{{ .UserName }}</p></li>
+                {{ end }}
                 </ol>
             </td>
         </tr>
@@ -54,5 +45,5 @@
         <i class="glyphicon glyphicon-plus"></i>
     </button>
 </div>
-</body>
-</html>
+
+{{ end }}
