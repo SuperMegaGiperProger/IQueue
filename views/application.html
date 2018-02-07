@@ -6,9 +6,12 @@
     <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/stylesheets/main.css">
+    {{ template "head" }}
 </head>
 <body>
     <div id="logo"><a href="/"><h1>IQueue</h1></a></div>
     {{ template "content" . }}
 </body>
 </html>
+
+{{ define "head" }}{{ end }}

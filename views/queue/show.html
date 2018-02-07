@@ -3,7 +3,8 @@
 <script>
     function create_item() {
         var username = prompt("Enter username", "");
-        window.location.replace("/push?queue_id=" + {{ .Queue.Id }} +"&username=" + username);
+        if (!(username == null))
+            window.location.replace("/push?queue_id=" + {{ .Queue.Id }} +"&username=" + username);
     }
 
     function remove() {
