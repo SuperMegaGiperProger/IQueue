@@ -5,7 +5,6 @@ import (
 	"../queue_item"
 	"database/sql"
 	"strconv"
-	"fmt"
 	"log"
 )
 
@@ -31,8 +30,7 @@ func New(name string) (q Queue, err error) {
 	row := models.DB.QueryRow(`INSERT INTO queues (name, first_item_id, last_item_id)
 							  			VALUES ($1, $2, $3)
 							  			RETURNING id`, name, fakeItem.Id, fakeItem.Id)
-	err = row.Scan(&(q.Id))
-	fmt.Println(err)
+	row.Scan(&(q.Id))
 	return
 }
 

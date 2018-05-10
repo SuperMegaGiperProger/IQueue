@@ -4,7 +4,6 @@ import (
 	"../../models"
 	"database/sql"
 	"strconv"
-	"fmt"
 )
 
 type QueueItem struct {
@@ -50,7 +49,7 @@ func Find(id int32) (qItem QueueItem) {
 }
 
 func (qItem QueueItem) RemoveRow() {
-	fmt.Println(models.DB.Exec(`DELETE FROM queue_items WHERE id=$1`, qItem.Id))
+	models.DB.Exec(`DELETE FROM queue_items WHERE id=$1`, qItem.Id)
 }
 
 func (qItem QueueItem) Remove() {
