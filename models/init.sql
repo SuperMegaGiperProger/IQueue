@@ -35,4 +35,3 @@ CREATE TABLE queues
 
 CREATE UNIQUE INDEX queues_id_uindex
   ON queues (id);
-

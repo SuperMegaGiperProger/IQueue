@@ -6,6 +6,7 @@ import (
 	"database/sql"
 	"strconv"
 	"fmt"
+	"log"
 )
 
 type Queue struct {
@@ -98,7 +99,10 @@ func (q Queue) ToSlice() (items []queue_item.QueueItem) {
 }
 
 func All() (queues []Queue) {
-	rows, _ := models.DB.Query(`SELECT * FROM queues`)
+	rows, err := models.DB.Query(`SELECT * FROM queues`)
+  if err != nil {
+    log.Fatal(err)
+  }
 	defer rows.Close()
 	var q Queue
 	for rows.Next() {
