@@ -1,5 +1,5 @@
 function add_item() {
-    $("#items_list").append('<li><p><input name="item[]" type="text" value="username"></p></li>');
+    $("#items_list").append('<li><p><input name="item[]" type="text" placeholder="username"></p></li>');
 }
 
 function get_items() {
