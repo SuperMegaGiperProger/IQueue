@@ -1,6 +1,10 @@
 # IQueue
 _IQueue_ is a web-app which allows you create, manage and track some user queues.
 
+![Index page image](docs/index.png)
+![Show page image](docs/show.png)
+![New page image](docs/new.png)
+
 ## Installing
   1. Install [golang](http://golang.org/).
   1. Customize database:
@@ -13,7 +17,7 @@ _IQueue_ is a web-app which allows you create, manage and track some user queues
   $ go build -o iqueue
   $ ./iqueue
 ```
-##### Run with `<port_number>` port
+Last command runs the app on _3000_ port. To run the app on other port execute this command:
 ```bash
   $ ./iqueue -port <port_number>
 ```
